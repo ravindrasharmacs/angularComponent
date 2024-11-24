@@ -2,10 +2,43 @@
 
 <div>
     <label for="name">Enter your name:</label>
-    <input type="text" id="name" [(ngModel)]="name" placeholder="Enter your name">
-    <button (click)="addItem(name)">Add Item</button>
+    <input type="text" id="nameOld" [(ngModel)]="nameOld" placeholder="Enter your name">
+    <button (click)="addItem(nameOld)">Add Item</button>
 </div>
 <ul>
     <li *ngFor="let item of items">{{item}}</li>
 </ul>
-<p>Hello, {{name}}!</p>
+<p>Hello, {{nameOld}}!</p>
+<h2>Registration Form</h2>
+
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">Name:</label>
+    <input id="name" type="text" formControlName="name">
+    <div *ngIf="name?.invalid && (name?.dirty || name?.touched)">
+      <small *ngIf="name?.errors?.['required']">Name is required.</small>
+      <small *ngIf="name?.errors?.['minlength']">Name must be at least 2 characters long.</small>
+    </div>
+  </div>
+
+  <div>
+    <label for="email">Email:</label>
+    <input id="email" type="email" formControlName="email">
+    <div *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+      <small *ngIf="email?.errors?.['required']">Email is required.</small>
+      <small *ngIf="email?.errors?.['email']">Please enter a valid email address.</small>
+    </div>
+  </div>
+
+  <div>
+    <label for="password">Password:</label>
+    <input id="password" type="password" formControlName="password">
+    <div *ngIf="password?.invalid && (password?.dirty || password?.touched)">
+      <small *ngIf="password?.errors?.['required']">Password is required.</small>
+      <small *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters long.</small>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="registrationForm.invalid">Register</button>
+</form>
+
