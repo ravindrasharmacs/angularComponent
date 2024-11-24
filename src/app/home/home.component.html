@@ -3,6 +3,9 @@
 <div>
     <label for="name">Enter your name:</label>
     <input type="text" id="name" [(ngModel)]="name" placeholder="Enter your name">
+    <button (click)="addItem(name)">Add Item</button>
 </div>
-
+<ul>
+    <li *ngFor="let item of items">{{item}}</li>
+</ul>
 <p>Hello, {{name}}!</p>
